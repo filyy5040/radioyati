@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radio Yati - Streaming Musicale Senza Limiti</title>
+    <style>
+        :root {
+            --primary: #121212;
+            --secondary: #1E1E1E;
+            --accent: #FFD700;
+            --text: #FFFFFF;
+            --text-secondary: #B3B3B3;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--primary);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: var(--secondary);
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo h1 {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--accent), #FFA500);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .logo-icon {
+            color: var(--accent);
+            font-size: 28px;
+            animation: pulse 2s infinite;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            padding-top: 80px;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero h2 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero h2 span {
+            color: var(--accent);
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: var(--accent);
+            color: #000;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 30px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.2);
+            transition: width 0.3s;
+            z-index: -1;
+        }
+
+        .btn:hover::before {
+            width: 100%;
+        }
+
+        .features {
+            padding: 100px 0;
+            background-color: var(--secondary);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h3 {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background-color: var(--primary);
+            padding: 30px;
+            border-radius: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+
+        .feature-card h4 {
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .app-description {
+            padding: 100px 0;
+            background-color: var(--primary);
+        }
+
+        .description-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .description-text {
+            flex: 1;
+        }
+
+        .description-text h3 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .description-text p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .description-image {
+            flex: 1;
+            position: relative;
+        }
+
+        .phone-mockup {
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+            position: relative;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .download {
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--secondary), #000);
+            text-align: center;
+        }
+
+        .download h3 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .download p {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        footer {
+            background-color: #000;
+            padding: 50px 0 20px;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-links a {
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .social-icon:hover {
+            background-color: var(--accent);
+            color: #000;
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h2 {
+                font-size: 36px;
+            }
+
+            .description-content {
+                flex-direction: column;
+            }
+
+            .description-text, .description-image {
+                flex: none;
+                width: 100%;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <h1>Radio Yati</h1>
+                </div>
+                <div class="nav-links">
+                    <a href="#features">Funzionalità</a>
+                    <a href="#about">Descrizione</a>
+                    <a href="#download">Scarica</a>
+                    <a href="#contact">Contatti</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2>La tua musica <span>senza limiti</span>, ovunque tu sia</h2>
+                <p>Scopri milioni di brani, crea le tue playlist personalizzate e ascolta la musica che ami con Radio Yati. Qualità audio premium e raccomandazioni personalizzate per te.</p>
+                <a href="#download" class="btn">Scarica ora</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h3>Esperienza musicale perfetta</h3>
+                <p>Radio Yati offre tutto ciò di cui hai bisogno per goderti la tua musica preferita</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-headphones"></i>
+                    </div>
+                    <h4>Audio HD</h4>
+                    <p>Qualità audio ad alta definizione per un'esperienza di ascolto immersiva e cristallina.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-sliders-h"></i>
+                    </div>
+                    <h4>Personalizzazione</h4>
+                    <p>Raccomandazioni basate sui tuoi gusti e abitudini di ascolto per scoprire nuova musica.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="app-description" id="about">
+        <div class="container">
+            <div class="description-content">
+                <div class="description-text">
+                    <h3>Radio Yati - La rivoluzione dello streaming musicale</h3>
+                    <p>Radio Yati è l'app di streaming musicale che mette al centro i tuoi gusti e le tue emozioni. Con un catalogo vastissimo che spazia dagli ultimi successi alle perle rare, troverai sempre la colonna sonora perfetta per ogni momento.</p>
+                    <p>La nostra tecnologia di raccomandazione avanzata impara dai tuoi ascolti per proporti nuovi artisti e brani che amerai, ampliando i tuoi orizzonti musicali.</p>
+                    <p>Che tu sia un appassionato di musica o un ascoltatore occasionale, Radio Yati offre un'esperienza personalizzata e senza interruzioni, con qualità audio che rispetta l'arte e la passione degli artisti.</p>
+                </div>
+                <div class="description-image">
+                    <img src="https://i.pinimg.com/736x/d3/32/0c/d3320ca121ec9d214c88763d8dbcd026.jpg" alt="Radio Yati App" class="phone-mockup">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="download" id="download">
+        <div class="container">
+            <h3>Pronto a iniziare il tuo viaggio musicale?</h3>
+            <p>Scarica Radio Yati ora e accedi a milioni di brani, playlist personalizzate e molto altro. Disponibile solo su Android.</p>
+            <a href="https://archive.org/download/radioYATI/app-release.apk" class="btn" id="downloadBtn">Scarica l'app</a>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-logo">Radio Yati</div>
+            <div class="footer-links">
+                <a href="#">Home</a>
+                <a href="#features">Funzionalità</a>
+                <a href="#about">Descrizione</a>
+                <a href="#download">Scarica</a>
+            </div>
+            <div class="copyright">
+                &copy; 2025 Radio Yati. Tutti i diritti riservati.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Animation on scroll
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.feature-card, .description-content, .section-title').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Download button animation
+        const downloadBtn = document.getElementById('downloadBtn');
+        
+        downloadBtn.addEventListener('mouseenter', () => {
+            downloadBtn.innerHTML = '<i class="fas fa-download"></i> Scarica l\'app';
+        });
+
+        downloadBtn.addEventListener('mouseleave', () => {
+            downloadBtn.textContent = 'Scarica l\'app';
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.padding = '10px 0';
+                header.style.background = 'rgba(30, 30, 30, 0.95)';
+            } else {
+                header.style.padding = '20px 0';
+                header.style.background = 'var(--secondary)';
+            }
+        });
+    </script>
+</body>
+</html>
